@@ -1,0 +1,11 @@
+1. route        => get 'todos'
+2. controller   => TodosController
+3. action       => index
+
+4. view         => app/views/todos/index.html.erb    
+5. helper       => (ruby code included in the view)
+6. layout       => application.html.erb
+
+7. model        => Todo
+8. db structure => table/columns/type
+9. data         => is that row even in there?

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LemurTodos</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <script id="todo-template" type="text/template" >
+    <li class="todo">
+      <div>
+         <%%= todo.text %>
+         <em><%%= todo.createdAt %></em>
+      </div>
+    </li>
+  </script>
+</head>
+<body>
+  <nav>
+    <%= render partial: current_user ? "/shared/user_nav" : "/shared/non_user_nav" %>
+  </nav>
+<%= yield %>
+
+</body>
+</html>

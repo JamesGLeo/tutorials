@@ -1,0 +1,15 @@
+<h2>New Playlist</h2>
+
+<h3>Errors</h3>
+<ul>
+<% @playlist.errors.full_messages.each do |msg| %>
+  <li><%= msg %></li>
+<% end %>
+</ul>
+
+<%= form_for @playlist do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.submit %>
+<% end %>

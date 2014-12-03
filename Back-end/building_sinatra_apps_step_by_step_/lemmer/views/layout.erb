@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lemmer</title>
+  <link rel="stylesheet" href="/stylesheets/styles.css">
+  <script src='/javascripts/jquery.js'></script>
+  <script src='/javascripts/scripts.js'></script>
+</head>
+<body>
+
+  <% if current_user %>
+    <%= erb :"partials/_user_navitation" %>
+  <% else %>
+    <%= erb :"partials/_non_user_navigation" %>
+  <% end %>
+
+  <%= yield %>
+</body>
+</html>

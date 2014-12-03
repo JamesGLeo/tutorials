@@ -1,0 +1,22 @@
+<h1><%= @user.username %> will eventually have todos</h1>
+<form id="new-todo" action="">
+  <input type="text" name="todo[text]">
+  <input type="submit">
+</form>
+<ul class="todos"></ul>
+<script>
+  var todoList = new TodoList({model: Todo});
+  $(document).ready(function(){
+    var listView = new TodoListView({
+      collection: todoList,
+      $el: $(".todos")
+    });
+    $("#new-todo").on("submit", function(e){
+      e.preventDefault();
+      var $textField = $(this).find("input[name='todo[text]']");
+      var todo = new Todo({text: $textField.val()});
+      todoList.create(todo);
+    })
+    todoList.fetch();
+  });
+</script>

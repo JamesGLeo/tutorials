@@ -1,0 +1,51 @@
+<h2><%= @playlist.name %></h2>
+
+<ul>
+  <% @playlist.songs.each do |song| %>
+    <li>
+      <a href="/songs/<%= song.id %>">
+        <%= song.artist.name %> - <%= song.title %>
+      </a>
+    </li>
+  <% end %>
+</ul>
+
+<h3>Add Song by ID</h3>
+<form action="/playlists/<%= @playlist.id %>/add_song" method="post">
+  <label  for="song_id">Song ID:</label>
+  <input name="song_id">
+
+  <input type="submit">
+</form>
+
+<h3>Remove Song by ID</h3>
+<form action="/playlists/<%= @playlist.id %>/remove_song" method="post">
+  <label  for="song_id">Artist ID:</label>
+  <input name="song_id">
+
+  <input type="submit">
+</form>
+
+<h3>Add Song by Title</h3>
+<form action="/playlists/<%= @playlist.id %>/add_song" method="post">
+  <select name="song_id">
+    <% Song.all.each do |song| %>
+      <option value="<%= song.id%>">
+        <%= song.artist.name + " - " + song.title %>
+      </option>
+    <% end %>
+  </select>
+  <input type="submit">
+</form>
+
+<h3>Remove Song by Title</h3>
+<form action="/playlists/<%= @playlist.id %>/remove_song" method="post">
+  <select name="song_id">
+    <% Song.all.each do |song| %>
+      <option value="<%= song.id%>">
+        <%= song.artist.name + " - " + song.title %>
+      </option>
+    <% end %>
+  </select>
+  <input type="submit">
+</form>

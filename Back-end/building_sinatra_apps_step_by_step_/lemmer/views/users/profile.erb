@@ -1,0 +1,25 @@
+
+<h2>Welcome <%= current_user.username %></h2>
+
+<form action="/lems" method="post">
+  <input type="text" name="lem[body]" placeholder='...your thought?'>
+  <input type="submit" value="Lem">
+</form>
+
+
+<% current_user.lems.each do |lem| %>
+  <div class='lem'>
+    <span>
+      <p>
+        <%= lem.body %>
+      </p>
+    </span>
+    <span>
+      <form action="/lems/<%= lem.id %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="Delete">
+      </form>
+      <h3><%= lem.tags.join(" - ") %></h3>
+    </span>
+  </div>
+<% end %>

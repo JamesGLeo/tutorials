@@ -1,0 +1,62 @@
+<h3>Toonify!</h3> 
+
+<h3 class='sentence-text'>
+  Toonify Me!
+</h3>
+
+<button name="accent-button" data-accent='elmer'>Elmer</button>
+<button name="accent-button" data-accent='daffy'>Daffy</button>
+
+<textarea name="toonify-text" rows="8" cols="40">
+</textarea>
+
+<script charset="utf-8">
+
+  var accentGloballyDefinedOnClient = 'elmer';
+  var sentenceGloballyDefinedOnClient = 'toonify me... please. I would really like that.'
+
+
+  function doThisWhenAJAXisSuccessful(dataSentFromServer){
+    $tooniedDisplay = $('h3.sentence-text');  // obtain the h3 from the dom
+    $tooniedDisplay.text(dataSentFromServer.sentence_from_server);  // Use jquery to modify text within the h3
+  }
+
+  function toonify(){
+
+      var stuffIWantInServerParams = {
+        accentFromClient: accentGloballyDefinedOnClient,
+        sentenceFromClient: sentenceGloballyDefinedOnClient
+      };
+
+      $.ajax({
+        method: 'GET',                         // HTTP Verb
+        url: '/api/toonify',                  //  URL?
+        dataType: 'JSON',                     // What should I ask for... and expect back
+        data: stuffIWantInServerParams,        // JS OBEJCT:  What should be sent to the server
+        success: doThisWhenAJAXisSuccessful   // JS FUNCTION: What should we do with the stuff the server sent back
+              // In jquery definition for successs... it passes in data when calling the callback
+      });
+
+  }
+
+
+// jQuery Document Ready
+  $(function(){
+
+    // Key up event to trigger ajax
+    $('textarea[name="toonify-text"]').on('keyup', function(e){
+      var sentenceLocallyDefinedInFunction = $(this).val();
+      sentenceGloballyDefinedOnClient = sentenceLocallyDefinedInFunction;
+      toonify();
+    });
+
+  // Accent button event
+  $('button[name="accent-button"]').on('click', function(e){
+    accentGloballyDefinedOnClient = $(this).data('accent');
+    toonify();
+  });
+
+  })
+
+
+</script>

@@ -1,0 +1,21 @@
+Do these steps when working with a group on a project via Git.
+
+Git Pull
+  Terminal: Git pull *upstream or origin* master
+
+Git create and checkout to Branch 
+  Terminal: Git checkout -b *newbranch*
+
+Make thing
+  Editor: Make the feature, etc.
+
+Git checkout to Master
+  Terminal: Git checkout master
+
+Git Pull
+  Terminal: Git pull *upstream or origin* master
+
+Git Merge the Branch
+  Terminal: Git merge *newbranch*
+
+WASH, RINSE, REPEAT.

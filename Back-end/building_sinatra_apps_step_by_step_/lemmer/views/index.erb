@@ -1,0 +1,10 @@
+<h3>Teach me how to Lemmer.</h3>
+
+<h3>Some Recent Posts:</h3>
+
+
+<% @selected_lems.each do |lem|%>
+  <div class='lem'>
+    <%= lem.created_at.strftime("%b. %d, %Y, (%H:%M)") %>: <%= lem.body %>
+  </div>
+<% end %>

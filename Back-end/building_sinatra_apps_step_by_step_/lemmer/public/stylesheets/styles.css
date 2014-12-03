@@ -1,0 +1,35 @@
+body{
+  background: url("/images/congruent_pentagon/congruent_pentagon.png");
+  overflow: hidden;
+}
+
+
+input[type='text'], input[type='password']{
+  border-radius: 10%;
+  padding: 1em;
+}
+
+input[type='submit']{
+  background-color: lightyellow;
+  border-radius: 20%;
+  margin: 1em;
+  padding: 1em;
+}
+
+
+.navigation form{
+  display: inline-block;
+}
+
+.lem{
+  background-color: lightyellow;
+  border-radius: 10%;
+  padding: 1em;
+  margin: 1em;
+  display: inline-block;
+}
+
+.lemlem{
+  position: absolute;
+  width: 10em;
+}
