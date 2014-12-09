@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>People</title>
+    <script src="jquery-1.11.1.js"></script>
+    <script src="handlebars-v2.0.0.js"></script>
+</head>
+
+<body>
+    <script id="person-template" type="text/x-handlebars-template">
+        <h2>{{name}}</h2>
+        Beard: {{beard}}
+    </script>
+
+    <script>
+        $(function(){
+        // STEP 1: Make objects
+          var andrew = {name: "Andrew",beard: "And then some"};
+          var yaniv =  {name: "Yaniv",beard: "Wanting"};
+          var matt =  {name: "Matt",beard: "Shorn"};
+
+        // STEP 2: Get the text of the template and compile it
+          var personTemplateHTML = $('#person-template').text();
+          var compiledPersonTemplate = Handlebars.compile(personTemplateHTML);
+
+        // STEP 3: Create HTML from the compiled template and the objects
+          var andrewHTML = compiledPersonTemplate(andrew);
+          var yanivHTML =  compiledPersonTemplate(yaniv);
+          var mattHTML =  compiledPersonTemplate(matt);
+
+        // STEP 4: Add HTML to the DOM
+          $('.people').append(andrewHTML);
+          $('.people').append(yanivHTML);
+          $('.people').append(mattHTML);
+        })
+
+
+    </script>
+
+    <h1>People</h1>
+
+</body>
+</html>

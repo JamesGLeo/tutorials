@@ -36,8 +36,8 @@ rake db:create && rake db:migrate
 ```
 rails g task db seed_markets
 ```
-2.  Write rake task
-![](/images/seed_markets.png)
+2.  Write rake task in "lib/tasks/db.rake"
+![](images/seed_markets.png)
 3.  Run rake task
 ```bash
   bin/rake db:seed_markets
@@ -47,10 +47,10 @@ rails g task db seed_markets
 ## 6. Routing and Controller
 
 1.  Set up resources for `markets`.  We will only need an index action.
-![](/images/routes.png)
+![](images/routes.png)
 2. Set up controller
 
-![](/images/controller_1.png)
+![](images/controller_1.png)
 
 Now we have a basic api.  Let's visit `localhost:3000/markets`
 
@@ -65,18 +65,18 @@ Let's have a look at [as_json](http://api.rubyonrails.org/classes/ActiveModel/Se
 
 Let's have a look at [active record scopes](http://guides.rubyonrails.org/active_record_querying.html#scopes)
 
-![](/images/scopes.png)
+![](images/scopes.png)
 
-![](/images/controller_2.png)
+![](images/controller_2.png)
 
 
 ## 8. Cross Origin Resource Sharing (CORS)
 
 What if we want to hit up our API?  Enter [CORS](http://enable-cors.org/)
 
-We will implement cors using the [rack-cors](https://github.com/cyu/rack-cors) gem.  We can enable CORS by white listing all request origins and specifying what constitutes an allowed resource request.
-
-![](/images/cors.png)
+We will implement cors using the [rack-cors](https://github.com/cyu/rack-cors) gem. We can enable CORS by white listing all request origins and specifying what constitutes an allowed resource request.
+In "config/application.rb"
+![](images/cors.png)
 
 Voila!
 
@@ -91,16 +91,54 @@ Voila!
 We make a basic "to-do" style application using Backbone components.  
 
 ## `Market` Model
-* There isn't much to see here
+* There isn't much to see here.
+
+var *Object* = *Object*.Model.extend({});
+
 
 ## `MarketList` Collection
 * Notice the url's domain is different from the one that is serving our application.
+
+var MarketList = Backbone.Collection.extend({
+  model: Market,
+  url: "https://enigmatic-depths-9871.herokuapp.com/markets"
+});
 
 ## `MarketView` View
 * We will use underscore's native templating language.  (The template has already been provided for you)
 * When we call the `template` function, we need to pass in the object returned by calling `toJSON()` on the view's model.  
 
+var MarketView = Backbone.View.extend({
+  tagName: 'li',
+  template: _.template($("#market-template").html()),
+  events: {
+    "click" : "toggleDetails"
+  },
+  render: function () {
+    this.$el.html( this.template({ market: this.model.toJSON()}));
+    return this;
+  },
+  toggleDetails: function() {
+  }
+})
+
+
 ## `MarketListView` View
+
+var MarketListView = Backbone.View.extend({
+  initialize: function() {
+    this.listenTo( this.collection, 'add', this.render );
+  },
+  render: function() {
+    this.$el.empty();
+    var that = this;
+    this.collection.each(function(market) {
+      var view = new MarketView({model: market});
+      that.$el.append(view.render().$el);
+    });
+  }
+})
+
 * How long does it take to render when we bind the render function to a `collection:add` or `collection:change` event? (Perhaps there is an optimization to be made here)
 
 
@@ -108,9 +146,9 @@ We make a basic "to-do" style application using Backbone components.
 
 #### It would be nice to render only after the collection is done updating.  This is possible using `{ reset: true }`
 
-![](/images/fetch_reset.png)
+![](images/fetch_reset.png)
 
-![](/images/bind_to_reset.png)
+![](images/bind_to_reset.png)
 
 
 Woah, that's a lot faster!
@@ -119,7 +157,7 @@ Woah, that's a lot faster!
 
 We can do this be fetching our collection when the select boxes are manipulated.  Notably, we include a data attribute in the object passed to `collection.fetch`.
 
-![](/images/fetch_with_data.png)
+![](images/fetch_with_data.png)
 
 
 ***Note:*** We could do this without making a request to the server.  Take a look at [collection.where](http://backbonejs.org/#Collection-where)
